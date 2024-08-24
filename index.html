@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salesforce Cron Generator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="navbar-name">
+          <a href="/">Salesforce Cron Generator</a>
+        </div>
+        <button class="navbar-toggle" aria-label="Toggle navigation">
+          &#9776;
+          <!-- Hamburger icon -->
+        </button>
+        <ul class="navbar-tabs">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#understand-cron">Understand Cron in Salesforce</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <div class="tab-content" id="home">
+            <h1>Salesforce Cron Expression Builder</h1>
+            <form id="cronForm">
+                <div class="field">
+                    <label for="seconds">Seconds:</label>
+                    <input type="text" id="seconds" placeholder="0-59, *">
+                </div>
+                <div class="field">
+                    <label for="minutes">Minutes:</label>
+                    <input type="text" id="minutes" placeholder="0-59, *">
+                </div>
+                <div class="field">
+                    <label for="hours">Hours:</label>
+                    <input type="text" id="hours" placeholder="0-23, *">
+                </div>
+                <div class="field">
+                    <label for="dayOfMonth">Day of Month:</label>
+                    <input type="text" id="dayOfMonth" placeholder="1-31, *, ?, L">
+                </div>
+                <div class="field">
+                    <label for="month">Month:</label>
+                    <input type="text" id="month" placeholder="1-12, JAN-DEC, *">
+                </div>
+                <div class="field">
+                    <label for="dayOfWeek">Day of Week:</label>
+                    <input type="text" id="dayOfWeek" placeholder="1-7, SUN-SAT, *, ?, L, 5#2">
+                </div>
+                <div class="field">
+                    <button type="button" onclick="generateCron()">Generate Cron Expression</button>
+                </div>
+            </form>
+            <div id="output">
+                <h2>Cron Expression:</h2>
+                <p id="cronExpression" class="center-text"></p>
+                <h2>Description:</h2>
+                <p id="description" class="center-text"></p>
+            </div>
+        </div>
+        <div class="tab-content" id="understand-cron" style="display: none;">
+            <h2>Understanding Cron Expressions</h2>
+            <p>
+                <table class="GeneratedTable">
+                    <thead class="Header_style">
+                      <tr>
+                        <th>Cron Statement</th>
+                        <th>Possible Values</th>
+                        <th>Supported Special Characters</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Seconds</td>
+                        <td>0 to 59</td>
+                        <td>none</td>
+                      </tr>
+                      <tr>
+                        <td>Minutes</td>
+                        <td>0 to 59</td>
+                        <td>none</td>
+                      </tr>
+                      <tr>
+                        <td>Hours</td>
+                        <td>0 to 23</td>
+                        <td class="word-spacing"> , -  *  / </td>
+                      </tr>
+                      <tr>
+                        <td>Day_of_month</td>
+                        <td>1 to 31</td>
+                        <td class="word-spacing">, - * ? / L</td>
+                      </tr>
+                      <tr>
+                        <td>Month</td>
+                        <td>1 to 12 or JAN to DEC </td>
+                        <td class="word-spacing">, - * /</td>
+                      </tr>
+                      <tr>
+                        <td>Day_of_week</td>
+                        <td>1 to 7 or SUN to SAT</td>
+                        <td class="word-spacing">, - * ? / L #</td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </p>
+            <p>
+                 <table class="GeneratedTable">
+                    <thead class="Header_style">
+                      <tr>
+                        <th>Special Character</th>
+                        <th>What it does</th>
+                        <th>Example</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="spChar_style">*</td>
+                        <td>It indicates all values</br>It means 'Every'</td>
+                        <td>0 30 10 * * *   means “10:30 AM every day.”</td>
+                      </tr>
+                      <tr>
+                        <td class="spChar_style">?</td>
+                        <td>It Indicates no specified value</br>It means 'Any'</br>it can only be used in Day_of_month and Day_of_week </td>
+                        <td>0 0 12 5 1 ?  means “12:00 PM on the 5th day of January” (whatever day of the week that is).</td>
+                      </tr>
+                      <tr>
+                        <td class="spChar_style">,</td>
+                        <td>It indicates separates value.</br>It means “and.”</td>
+                        <td>0 0 12 1 3,4,5 ?  means "12.00 PM on 1st day of March,April & May" </td>
+                      </tr>
+                      <tr>
+                        <td class="spChar_style">-</td>
+                        <td>It indicates time range </br> It means "From...To.."</td>
+                        <td>0 0 10-14 ? * SUN means "from 10 am to 2 pm every sunday"</td>
+                      </tr>
+                      <tr>
+                        <td class="spChar_style">/</td>
+                        <td>It indicates Increments.</br> 
+                            The number before the slash specifies when the interval begins. The number after the slash is the interval. </td>
+                        <td>0 0 1/3 * * *  means “starting from 1:00 AM every 2 hours every day.”</td>
+                      </tr>
+                      <tr>
+                        <td class="spChar_style">#</td>
+                        <td>It indicates the nth weekday of the month.</br>it can only be used for Day_of_week</br>
+                            The value before # sign is the weekday. The value after is the occurrence.</td>
+                        <td>0 0 12 ? * 5#2 means “12:00 PM on the second Thursday of every month.”</td>
+                      </tr>
+                      <tr>
+                        <td class="spChar_style">L</td>
+                        <td>It indicates the end of a range.</br>It means as “last”.</br>it can only be used in Day_of_month and Day_of_week </td>
+                        <td>0 0 12 L */1 ? means “12:00 PM on the last day of the month”</td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </p>
+        </div>
+        <div class="tab-content" id="about" style="display: none;">
+            <h2>About This Tool</h2>
+            <p>This tool helps you build Salesforce Cron expressions with an easy-to-use interface. It allows you to input values for each field and provides a human-readable description of the resulting schedule.</p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
