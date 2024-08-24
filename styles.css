@@ -208,6 +208,11 @@ table.GeneratedTable thead {
     word-spacing: 12px;
 }
 
+.format-spacing{
+  word-spacing: 7px;
+  text-align: center;
+}
+
 .spChar_style{
     text-align:center;
     font-weight: bold;
