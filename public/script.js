@@ -222,7 +222,7 @@ function convertHours(hour) {
         '21': '9 PM',
         '22': '10 PM',
         '23': '11 PM',
-        '0': '12 AM (midight)'
+        '0': '12 AM (midnight)'
     };
     const h = hour.split(',').map(hrs => hoursMapping[hrs] || hrs).join(', ');
     return h;
