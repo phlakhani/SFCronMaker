@@ -1,89 +1,187 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salesforce Cron Generator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/10.13.0/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/10.13.0/firebase-auth-compat.js"></script>
-    <script defer src="/__/firebase/10.13.0/firebase-database-compat.js"></script>
-    <script defer src="/__/firebase/10.13.0/firebase-firestore-compat.js"></script>
-    <script defer src="/__/firebase/10.13.0/firebase-functions-compat.js"></script>
-    <script defer src="/__/firebase/10.13.0/firebase-messaging-compat.js"></script>
-    <script defer src="/__/firebase/10.13.0/firebase-storage-compat.js"></script>
-    <script defer src="/__/firebase/10.13.0/firebase-analytics-compat.js"></script>
-    <script defer src="/__/firebase/10.13.0/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/10.13.0/firebase-performance-compat.js"></script>
-    <!-- 
-      initialize the SDK after all desired features are loaded, set useEmulator to false
-      to avoid connecting the SDK to running emulators.
-    -->
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
-
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
-    </style>
-  </head>
-  <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
+    <nav class="navbar">
+        <div class="navbar-name">
+          <a href="/">Salesforce Cron Generator</a>
+        </div>
+        <button class="navbar-toggle" aria-label="Toggle navigation">
+          &#9776;
+          <!-- Hamburger icon -->
+        </button>
+        <ul class="navbar-tabs">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#understand-cron">Understand Cron in Salesforce</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <div class="tab-content" id="home">
+            <h1>Salesforce Cron Expression Builder</h1>
+            <form id="cronForm">
+                <div class="field">
+                    <label for="seconds">Seconds:</label>
+                    <input type="text" id="seconds" placeholder="0-59, *">
+                </div>
+                <div class="field">
+                    <label for="minutes">Minutes:</label>
+                    <input type="text" id="minutes" placeholder="0-59, *">
+                </div>
+                <div class="field">
+                    <label for="hours">Hours:</label>
+                    <input type="text" id="hours" placeholder="0-23, *">
+                </div>
+                <div class="field">
+                    <label for="dayOfMonth">Day of Month:</label>
+                    <input type="text" id="dayOfMonth" placeholder="1-31, *, ?, L">
+                </div>
+                <div class="field">
+                    <label for="month">Month:</label>
+                    <input type="text" id="month" placeholder="1-12, JAN-DEC, *">
+                </div>
+                <div class="field">
+                    <label for="dayOfWeek">Day of Week:</label>
+                    <input type="text" id="dayOfWeek" placeholder="1-7, SUN-SAT, *, ?, L, 5#2">
+                </div>
+                <div class="field">
+                    <button type="button" onclick="generateCron()">Generate Cron Expression</button>
+                </div>
+            </form>
+            <div id="output">
+                <h2>Cron Expression:</h2>
+                <p id="cronExpression" class="center-text"></p>
+                <h2>Description:</h2>
+                <p id="description" class="center-text"></p>
+            </div>
+        </div>
+        <div class="tab-content" id="understand-cron" style="display: none;">
+            <h2>Understanding Cron Expressions</h2>
+            <p>
+              a cron expression is used to define scheduled jobs or tasks that run automatically at specified intervals. These expressions are a way to set up scheduled jobs in Salesforce that execute Apex code or other scheduled tasks on a regular basis.
+            </p>
+            <p>
+              A cron expression is a string consisting of 6 or 7 fields separated by spaces, each field representing a different time unit.
+            </p>
+            <h2>Cron Format:</h2>
+            <p class="format-spacing"><strong>" Seconds Minutes Hours Day_of_Month Month Day_of_Week "</strong></p>
+            <h3>Understand each fields: </h3>
+            <p>
+                <table class="GeneratedTable">
+                    <thead class="Header_style">
+                      <tr>
+                        <th>Parts of Cron Expression</th>
+                        <th>Possible Values</th>
+                        <th>Supported Special Characters</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Seconds</td>
+                        <td>0 to 59</td>
+                        <td>none</td>
+                      </tr>
+                      <tr>
+                        <td>Minutes</td>
+                        <td>0 to 59</td>
+                        <td>none</td>
+                      </tr>
+                      <tr>
+                        <td>Hours</td>
+                        <td>0 to 23</td>
+                        <td class="word-spacing"> , -  *  / </td>
+                      </tr>
+                      <tr>
+                        <td>Day_of_month</td>
+                        <td>1 to 31</td>
+                        <td class="word-spacing">, - * ? / L</td>
+                      </tr>
+                      <tr>
+                        <td>Month</td>
+                        <td>1 to 12 or JAN to DEC </td>
+                        <td class="word-spacing">, - * /</td>
+                      </tr>
+                      <tr>
+                        <td>Day_of_week</td>
+                        <td>1 to 7 or SUN to SAT</td>
+                        <td class="word-spacing">, - * ? / L #</td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </p>
+            <h3>Meaning of each special characters: </h3>
+            <p>
+                 <table class="GeneratedTable">
+                    <thead class="Header_style">
+                      <tr>
+                        <th>Special Character</th>
+                        <th>What it does</th>
+                        <th>Example</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="spChar_style">*</td>
+                        <td>It indicates all values</br>It means 'Every'</td>
+                        <td>0 30 10 * * *   means “10:30 AM every day.”</td>
+                      </tr>
+                      <tr>
+                        <td class="spChar_style">?</td>
+                        <td>It Indicates no specified value</br>It means 'Any'</br>it can only be used in Day_of_month and Day_of_week </td>
+                        <td>0 0 12 5 1 ?  means “12:00 PM on the 5th day of January” (whatever day of the week that is).</td>
+                      </tr>
+                      <tr>
+                        <td class="spChar_style">,</td>
+                        <td>It indicates separates value.</br>It means “and.”</td>
+                        <td>0 0 12 1 3,4,5 ?  means "12.00 PM on 1st day of March,April & May" </td>
+                      </tr>
+                      <tr>
+                        <td class="spChar_style">-</td>
+                        <td>It indicates time range </br> It means "From...To.."</td>
+                        <td>0 0 10-14 ? * SUN means "from 10 am to 2 pm every sunday"</td>
+                      </tr>
+                      <tr>
+                        <td class="spChar_style">/</td>
+                        <td>It indicates Increments.</br> 
+                            The number before the slash specifies when the interval begins. The number after the slash is the interval. </td>
+                        <td>0 0 1/3 * * *  means “starting from 1:00 AM every 3 hours every day.”</td>
+                      </tr>
+                      <tr>
+                        <td class="spChar_style">#</td>
+                        <td>It indicates the nth weekday of the month.</br>it can only be used for Day_of_week</br>
+                            The value before # sign is the weekday. The value after is the occurrence.</td>
+                        <td>0 0 12 ? * 5#2 means “12:00 PM on the second Thursday of every month.”</td>
+                      </tr>
+                      <tr>
+                        <td class="spChar_style">L</td>
+                        <td>It indicates the end of a range.</br>It means as “last”.</br>it can only be used in Day_of_month and Day_of_week </td>
+                        <td>0 0 12 L */1 ? means “12:00 PM on the last day of the month”</td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </p>
+        </div>
+        <div class="tab-content" id="about" style="display: none;">
+            <h2>About This Tool</h2>
+            <p>This tool helps you build Salesforce Cron expressions with an easy-to-use interface. It allows you to input values for each field and provides a human-readable description of the resulting schedule.</p>
+            <h2>Proudly built by</h2>
+            <p style="text-align: center"><a href="https://salesforcefox.com/" target="_blank">SalesforceFox.com</a></p>
+            <h2>Follow us:</h2>
+            <p style="text-align: center">
+              <a href="https://www.linkedin.com/company/sffox/" target="blank" class="logo">
+                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="60" height="60" viewBox="0 0 48 48">
+                <path fill="#0078d4" d="M42,37c0,2.762-2.238,5-5,5H11c-2.761,0-5-2.238-5-5V11c0-2.762,2.239-5,5-5h26c2.762,0,5,2.238,5,5	V37z"></path><path d="M30,37V26.901c0-1.689-0.819-2.698-2.192-2.698c-0.815,0-1.414,0.459-1.779,1.364	c-0.017,0.064-0.041,0.325-0.031,1.114L26,37h-7V18h7v1.061C27.022,18.356,28.275,18,29.738,18c4.547,0,7.261,3.093,7.261,8.274	L37,37H30z M11,37V18h3.457C12.454,18,11,16.528,11,14.499C11,12.472,12.478,11,14.514,11c2.012,0,3.445,1.431,3.486,3.479	C18,16.523,16.521,18,14.485,18H18v19H11z" opacity=".05"></path><path d="M30.5,36.5v-9.599c0-1.973-1.031-3.198-2.692-3.198c-1.295,0-1.935,0.912-2.243,1.677	c-0.082,0.199-0.071,0.989-0.067,1.326L25.5,36.5h-6v-18h6v1.638c0.795-0.823,2.075-1.638,4.238-1.638	c4.233,0,6.761,2.906,6.761,7.774L36.5,36.5H30.5z M11.5,36.5v-18h6v18H11.5z M14.457,17.5c-1.713,0-2.957-1.262-2.957-3.001	c0-1.738,1.268-2.999,3.014-2.999c1.724,0,2.951,1.229,2.986,2.989c0,1.749-1.268,3.011-3.015,3.011H14.457z" opacity=".07"></path><path fill="#fff" d="M12,19h5v17h-5V19z M14.485,17h-0.028C12.965,17,12,15.888,12,14.499C12,13.08,12.995,12,14.514,12	c1.521,0,2.458,1.08,2.486,2.499C17,15.887,16.035,17,14.485,17z M36,36h-5v-9.099c0-2.198-1.225-3.698-3.192-3.698	c-1.501,0-2.313,1.012-2.707,1.99C24.957,25.543,25,26.511,25,27v9h-5V19h5v2.616C25.721,20.5,26.85,19,29.738,19	c3.578,0,6.261,2.25,6.261,7.274L36,36L36,36z"></path>
+                </svg>
+                </a>
+            </p>
+        </div>
     </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
-
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const loadEl = document.querySelector('#load');
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.firestore().doc('/foo/bar').get().then(() => { });
-        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        // firebase.analytics(); // call to activate
-        // firebase.analytics().logEvent('tutorial_completed');
-        // firebase.performance(); // call to activate
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-
-        try {
-          let app = firebase.app();
-          let features = [
-            'auth', 
-            'database', 
-            'firestore',
-            'functions',
-            'messaging', 
-            'storage', 
-            'analytics', 
-            'remoteConfig',
-            'performance',
-          ].filter(feature => typeof app[feature] === 'function');
-          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
-        }
-      });
-    </script>
-  </body>
+    <script src="script.js"></script>
+</body>
 </html>
