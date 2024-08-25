@@ -3,14 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salesforce Cron Generator</title>
+    <meta name="description" content="This Salesforce Cron Maker tool helps you create Salesforce Cron expressions with an easy-to-use interface. It allows you to input values for each field and provides a human-readable description of the resulting schedule.">
+    <meta name="keywords" content="Salesforce, Cron Expression, Scheduled Job, Create Cron in Salesforce">
+    <meta name="author" content="SalesforceFox.com">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:title" content="SalesforceFox">
+    <meta property="og:description" content="Here at SalesforceFox, Our goal is to make your Salesforce learning experience seamless, enjoyable, and incredibly rewarding.">
+    <meta property="og:url" content="https://www.linkedin.com/company/sffox/">
+    <meta property="og:type" content="website"> <!-- Can also be "article" for blog posts, etc. -->
+
+    <title>Salesforce Cron Maker</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
     <nav class="navbar">
         <div class="navbar-name">
-          <a href="/">Salesforce Cron Generator</a>
+          <a href="/">Salesforce Cron Maker</a>
         </div>
         <button class="navbar-toggle" aria-label="Toggle navigation">
           &#9776;
@@ -24,7 +34,7 @@
     </nav>
     <div class="container">
         <div class="tab-content" id="home">
-            <h1>Salesforce Cron Expression Builder</h1>
+            <h1>Build Salesforce Cron Expression</h1>
             <form id="cronForm">
                 <div class="field">
                     <label for="seconds">Seconds:</label>
@@ -62,16 +72,17 @@
             </div>
         </div>
         <div class="tab-content" id="understand-cron" style="display: none;">
+          </br>
             <h2>Understanding Cron Expressions</h2>
             <p>
-              a cron expression is used to define scheduled jobs or tasks that run automatically at specified intervals. These expressions are a way to set up scheduled jobs in Salesforce that execute Apex code or other scheduled tasks on a regular basis.
+              A cron expression is used to define scheduled jobs or tasks that run automatically at specified intervals. These expressions are a way to set up scheduled jobs in Salesforce that execute Apex code or other scheduled tasks on a regular basis.
             </p>
             <p>
               A cron expression is a string consisting of 6 or 7 fields separated by spaces, each field representing a different time unit.
             </p>
             <h2>Cron Format:</h2>
             <p class="format-spacing"><strong>" Seconds Minutes Hours Day_of_Month Month Day_of_Week "</strong></p>
-            <h3>Understand each fields: </h3>
+            <h3>Understand each fields:</h3>
             <p>
                 <table class="GeneratedTable">
                     <thead class="Header_style">
