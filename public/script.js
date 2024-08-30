@@ -31,6 +31,18 @@ function generateCron() {
     const month = document.getElementById('month').value.trim() || '*';
     const dayOfWeek = document.getElementById('dayOfWeek').value.trim() || '*';
 
+    // Validate all fields
+    if (
+        !validateCronField('seconds', seconds) ||
+        !validateCronField('minutes', minutes) ||
+        !validateCronField('hours', hours) ||
+        !validateCronField('dayOfMonth', dayOfMonth) ||
+        !validateCronField('month', month) ||
+        !validateCronField('dayOfWeek', dayOfWeek)
+    ) {
+        return;
+    }
+
     const cronExpression = `${seconds} ${minutes} ${hours} ${dayOfMonth} ${month} ${dayOfWeek}`;
     const description = generateDescription(seconds, minutes, hours, dayOfMonth, month, dayOfWeek);
 
@@ -244,4 +256,33 @@ function convertToNthDay(dayNo) {
     };
     const nthDay = dayNo.split(',').map(day => dayMapping[day] || day).join(', ');
     return nthDay;
+}
+
+function validateCronField(field, value) {
+    const validationRules = {
+        // Seconds: Only values 0-59, no special characters
+        seconds: /^(?:[0-9]|[1-5][0-9])$/,
+
+        // Minutes: Only values 0-59, no special characters
+        minutes: /^(?:[0-9]|[1-5][0-9])$/,
+
+        // Hours: Values 0-23, with special characters , - * /
+        hours: /^(\*|(?:[01]?[0-9]|2[0-3])(?:[-,\/]?[01]?[0-9]|[-,\/]?2[0-3])*)$/,
+
+        // Day_of_month: Values 1-31, with special characters , - * ? / L
+        dayOfMonth: /^(\*|\?|L|(?:[1-9]|[12][0-9]|3[01])(?:[-,\/]?[1-9]|[-,\/]?[12][0-9]|[-,\/]?3[01])*)$/,
+
+        // Month: Values 1-12 or JAN-DEC, with special characters , - * /
+        month: /^(\*|(?:[1-9]|1[0-2]|JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:[-,\/]?(?:[1-9]|1[0-2]|JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))*)$/,
+
+        // Day_of_week: Values 1-7 or SUN-SAT, with special characters , - * ? / L #
+        dayOfWeek: /^(\*|\?|L|\dL|\d#\d|(?:[0-7]|SUN|MON|TUE|WED|THU|FRI|SAT)(?:[-,\/#]?(?:[0-7]|SUN|MON|TUE|WED|THU|FRI|SAT))*)$/
+    };
+
+    // Validate the value against the correct pattern for the field
+    if (!validationRules[field].test(value)) {
+        alert(`Invalid values for ${field}`);
+        return false;
+    }
+    return true;
 }

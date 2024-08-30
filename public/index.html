@@ -29,6 +29,7 @@
         <ul class="navbar-tabs">
           <li><a href="#home">Home</a></li>
           <li><a href="#understand-cron">Understand Cron in Salesforce</a></li>
+          <li><a href="#cron-examples">Cron Examples</a></li>
           <li><a href="#about">About</a></li>
         </ul>
     </nav>
@@ -38,27 +39,27 @@
             <form id="cronForm">
                 <div class="field">
                     <label for="seconds">Seconds:</label>
-                    <input type="text" id="seconds" placeholder="0-59, *">
+                    <input type="text" id="seconds" placeholder="0-59">
                 </div>
                 <div class="field">
                     <label for="minutes">Minutes:</label>
-                    <input type="text" id="minutes" placeholder="0-59, *">
+                    <input type="text" id="minutes" placeholder="0-59">
                 </div>
                 <div class="field">
                     <label for="hours">Hours:</label>
-                    <input type="text" id="hours" placeholder="0-23, *">
+                    <input type="text" id="hours" placeholder="0-23  - , * /">
                 </div>
                 <div class="field">
                     <label for="dayOfMonth">Day of Month:</label>
-                    <input type="text" id="dayOfMonth" placeholder="1-31, *, ?, L">
+                    <input type="text" id="dayOfMonth" placeholder="1-31  - , * ? / L">
                 </div>
                 <div class="field">
                     <label for="month">Month:</label>
-                    <input type="text" id="month" placeholder="1-12, JAN-DEC, *">
+                    <input type="text" id="month" placeholder="1-12 JAN-DEC - , * /">
                 </div>
                 <div class="field">
                     <label for="dayOfWeek">Day of Week:</label>
-                    <input type="text" id="dayOfWeek" placeholder="1-7, SUN-SAT, *, ?, L, 5#2">
+                    <input type="text" id="dayOfWeek" placeholder="1-7 SUN-SAT - , * ? L / 5#2">
                 </div>
                 <div class="field">
                     <button type="button" onclick="generateCron()">Generate Cron Expression</button>
@@ -177,6 +178,55 @@
                     </tbody>
                   </table>
             </p>
+        </div>
+        <!-- Cron Examples Tab Content -->
+        <div class="tab-content" id="cron-examples" style="display:none;">
+          <h1>Cron Examples</h1>
+          <p>Here are some common Cron expressions used in Salesforce for various scheduled job:</p>
+          <ol class="cron-example-tab">
+            <li><strong>Run Every Day at 12:00 PM (Noon)</strong>
+              <ul style="list-style-type:disc;">
+                <li>Cron :  0 0 12 * * ?</li>
+                <li>Explanation: The Job will run at 12 PM , every day of the month, every month.</li>
+              </ul>
+            </li>
+            <li><strong>Run Every Sunday at 5:30 PM</strong>
+              <ul style="list-style-type:disc;">
+                <li>Cron :  0 30 17 ? * 1</li>
+                <li>Explanation: The Job will run at 5.30 PM , every month, on Sunday.</li>
+              </ul>
+            </li>
+            <li><strong> Run thrice a day on Weekends for month of January</strong>
+              <ul style="list-style-type:disc;">
+                <li>Cron :  0 0 0/4 ? JAN 1,7 <</li>
+                <li>Explanation: The Job will run at every 4 hours, in January, on Sunday, Saturday.</li>
+              </ul>
+            </li>
+            <li><strong>Run Every Monday and Wednesday at 9:00 AM</strong>
+              <ul style="list-style-type:disc;">
+                <li>Cron : 0 0 9 ? * MON,WED</li>
+                <li>Explanation: The Job will run at 9 AM , every month, on Monday, Wednesday.</li>
+              </ul>
+            </li>
+            <li><strong>Run from Mon to Fri, midnight to 6 am in month of December</strong>
+              <ul style="list-style-type:disc;">
+                <li>Cron : 0 0 0-6 ? 12 MON-FRI</li>
+                <li>Explanation: The Job will run from 12 AM (midnight) to 6 AM , in December, from Monday to Friday .</li>
+              </ul>
+            </li>
+            <li><strong> Run on every 2nd Sunday midnight every month</strong>
+              <ul style="list-style-type:disc;">
+                <li>Cron : 0 0 0 ? * 7#2</li>
+                <li>Explanation: The Job will run at 12 AM (midnight) , every month, on every second Saturday .</li>
+              </ul>
+            </li>
+            <li><strong>Run on weekend at midnight from January to March</strong>
+              <ul style="list-style-type:disc;">
+                <li>Cron : 0 0 0 ? 1-3 1,7</li>
+                <li>Explanation: The Job will run at 12 AM (midnight) , from January to March , on Sunday, Saturday.</li>
+              </ul>
+            </li>
+          </ol>
         </div>
         <div class="tab-content" id="about" style="display: none;">
             <h2>About This Tool</h2>
