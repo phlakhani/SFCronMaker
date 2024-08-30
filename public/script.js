@@ -146,7 +146,7 @@ function generateDescription(seconds, minutes, hours, dayOfMonth, month, dayOfWe
         descriptionParts.push(`from ${convertDayOfWeek(dayOfWeekRange[0])} to ${convertDayOfWeek(dayOfWeekRange[1])} `);
     }else if (dayOfWeek.includes('#')) {
         let nthDayArray = dayOfWeek.split('#');
-        descriptionParts.push(`on every ${convertToNthDay(nthDayArray[1])} ${convertDayOfWeek(nthDayArray[0])} `);
+        descriptionParts.push(`on ${convertToNthDay(nthDayArray[1])} ${convertDayOfWeek(nthDayArray[0])} `);
     } else {
         descriptionParts.push(`on ${convertDayOfWeek(dayOfWeek)}`);
     }

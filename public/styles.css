@@ -1,198 +1,183 @@
 /* styles.css */
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-  }
-  
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #0070d2;
-    padding: 10px 20px;
-    color: white;
-    position: relative; /* Added for absolute positioning of navbar-tabs */
-  }
-  
-  .navbar-name a {
-    color: white;
-    text-decoration: none;
-    font-size: 24px;
-    font-weight: bold;
-  }
-  
-  .navbar-tabs {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    gap: 15px;
-    position: absolute; /* Centering tabs in relation to the navbar */
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  
-  .navbar-tabs li {
-    margin: 0;
-  }
-  
-  .navbar-tabs a {
-    color: white;
-    padding: 10px 20px;
-    text-decoration: none;
-    text-align: center;
-    font-size: 16px;
-    margin: 0 8px; /* Nominal space between tabs */
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-  }
-
-  .navbar a.active {
-    background-color: #005fb2;
+  margin: 0;
+  font-family: Arial, sans-serif;
 }
-  
-  .navbar-tabs a:hover {
-    color: #f0f0f0;
-  }
-  
-  @media (max-width: 768px) {
-    .navbar {
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0070d2;
+  padding: 15px 20px;
+  color: white;
+  position: relative;
+  flex-wrap: wrap; /* Allows wrapping on smaller screens */
+}
+
+.navbar-name a {
+  color: white;
+  text-decoration: none;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.navbar-tabs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 15px;
+  position: absolute;
+  right: 5%;
+  top: 20px;
+}
+
+.navbar-tabs li {
+  margin: 0;
+}
+
+.navbar-tabs a {
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  text-align: center;
+  font-size: 16px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.navbar-tabs a.active {
+  background-color: #005fb2;
+}
+
+.navbar-tabs a:hover {
+  color: #f0f0f0;
+}
+
+.navbar-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+}
+
+@media (max-width: 1024px) {
+  .navbar {
       flex-direction: column;
       align-items: flex-start;
-      position: static; /* Reset position for mobile view */
-      padding: 10px; /* Adjust padding for mobile */
-    }
-  
-    .navbar-name {
-      margin-bottom: 10px; /* Space between site name and tabs */
-    }
-  
-    .navbar-tabs {
-      position: static; /* Reset positioning */
-      transform: none; /* Reset transform */
-      flex-direction: column; /* Stack tabs vertically */
-      width: 100%; /* Full width for mobile view */
-      gap: 10px; /* Space between tabs */
-    }
-  
-    .navbar-tabs a {
-      font-size: 16px; /* Adjust font size for mobile */
-    }
+      padding: 10px;
   }
-  
-  .navbar-toggle {
-    display: none; /* Hide toggle button by default */
-    background: none;
-    border: none;
-    font-size: 24px;
-    color: white;
-    cursor: pointer;
-  }
-  
-  @media (max-width: 768px) {
-    .navbar-toggle {
-      display: block; /* Show toggle button on mobile */
-    }
-  
-    .navbar-tabs {
-      display: none; /* Hide tabs by default on mobile */
-      flex-direction: column;
-    }
-  
-    .navbar-tabs.active {
-      display: flex; /* Show tabs when toggle button is clicked */
-    }
-  }
-  
 
+  .navbar-tabs {
+      position: static;
+      flex-direction: column;
+      width: 100%;
+      gap: 10px;
+      display: none; /* Hide tabs by default on tablets */
+  }
+
+  .navbar-tabs.active {
+      display: flex; /* Show tabs when toggle button is clicked */
+  }
+
+  .navbar-toggle {
+      display: block;
+      margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar-tabs {
+      /* Adjust for smaller screens */
+      font-size: 14px;
+  }
+}
 
 .container {
-    max-width: 800px;
-    margin: 20px auto;
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: 20px auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
-    text-align: center;
-    margin-bottom: 20px;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .field {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 label {
-    display: block;
-    margin-bottom: 5px;
+  display: block;
+  margin-bottom: 5px;
 }
 
 input, button {
-    width: calc(100% - 16px);
-    padding: 8px;
-    margin-top: 5px;
-    box-sizing: border-box;
+  width: calc(100% - 16px);
+  padding: 8px;
+  margin-top: 5px;
+  box-sizing: border-box;
 }
 
 input {
-    font-size: 16px;
+  font-size: 16px;
 }
 
 button {
-    background-color: #0070d2;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
+  background-color: #0070d2;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
 }
 
 button:hover {
-    background-color: #005fb2;
+  background-color: #005fb2;
 }
 
 #output {
-    margin-top: 20px;
-    text-align: center;
+  margin-top: 20px;
+  text-align: center;
 }
 
 .tab-content {
-    display: none;
+  display: none;
 }
 
 .tab-content.active {
-    display: block;
+  display: block;
 }
 
 .center-text {
-    text-align: center;
+  text-align: center;
 }
 
 h2 {
-    text-align: center;
-    margin: 10px 0;
+  text-align: center;
+  margin: 10px 0;
 }
 
 p {
-    font-size: 16px;
-    line-height: 1.6;
+  font-size: 16px;
+  line-height: 1.6;
 }
 
 table.GeneratedTable {
   width: 100%;
   background-color: #ffffff;
   border-collapse: collapse;
-  border-width: 1px;
-  border-color: #000000;
-  border-style: solid;
-  color: #000000;
+  border: 1px solid #000000;
 }
 
 table.GeneratedTable td, table.GeneratedTable th {
-  border-width: 1px;
-  border-color: #000000;
-  border-style: solid;
+  border: 1px solid #000000;
   padding: 8px;
 }
 
@@ -200,37 +185,24 @@ table.GeneratedTable thead {
   background-color: #0070d2;
 }
 
-.Header_style{
-   color: #ffffff;
+.Header_style {
+  color: #ffffff;
 }
 
-.word-spacing{
-    word-spacing: 12px;
+.word-spacing {
+  word-spacing: 12px;
 }
 
-.format-spacing{
+.format-spacing {
   word-spacing: 7px;
   text-align: center;
 }
 
-.spChar_style{
-    text-align:center;
-    font-weight: bold;
+.spChar_style {
+  text-align: center;
+  font-weight: bold;
 }
 
-
-.cron-example-tab li{
-
+.cron-example-tab li {
   padding: 10px;
 }
-
-
-
-
-
-
-
-
-
-
-
