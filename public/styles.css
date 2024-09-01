@@ -52,7 +52,7 @@ body {
 }
 
 .navbar-tabs a:hover {
-  color: #f0f0f0;
+  background-color: #005fb2;
 }
 
 .navbar-toggle {
